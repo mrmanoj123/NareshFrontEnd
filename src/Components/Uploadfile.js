@@ -44,7 +44,6 @@ const UploadFiles = () => {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>📤 Upload Files</h2>
-      <p>Id : {id}</p>
 
       <p style={styles.subtitle}>
         Upload your files securely and generate access links that can be shared
