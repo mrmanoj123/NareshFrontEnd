@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./Components/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Components/Home";
+import UploadFiles from "./Components/Uploadfile";
+import Faq from "./Components/faq";
+import Unauthorized from "./Components/unauth";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/upload/:id" element={<UploadFiles />} />
+        <Route path="/upload" element={<Unauthorized />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/unauth" element={<Unauthorized />} />
+      </Routes>
+    </>
   );
 }
 
