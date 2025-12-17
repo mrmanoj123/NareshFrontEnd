@@ -6,7 +6,7 @@ const Header = () => {
       <div style={styles.logo}>File Upload Portal</div>
 
       <nav style={styles.nav}>
-        <a href="/home" style={styles.link}>
+        <a href="/" style={styles.link}>
           Home
         </a>
         <a href="/upload" style={styles.link}>

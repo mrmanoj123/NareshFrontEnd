@@ -11,7 +11,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/upload/:id" element={<UploadFiles />} />
         <Route path="/upload" element={<Unauthorized />} />
         <Route path="/faq" element={<Faq />} />
