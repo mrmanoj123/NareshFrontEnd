@@ -1,8 +1,22 @@
 import React from "react";
+import { useMsal } from "@azure/msal-react";
+
 
 const Header = () => {
+
+  const { instance } = useMsal();
+
+const handleLogout = () => {
+  instance.logoutRedirect({
+    postLogoutRedirectUri: "/",
+  });
+};
+  const {accounts} = useMsal();
+  const user = accounts[0]
+  const userName = user.name.includes(' ')?user.name.split(' ')[0]:user.name
   return (
     <header style={styles.header}>
+      <h1>Welcome, {userName}</h1>
       <div style={styles.logo}>File Upload Portal</div>
 
       <nav style={styles.nav}>
@@ -15,12 +29,23 @@ const Header = () => {
         <a href="/faq" style={styles.link}>
           FAQ
         </a>
+        <button style={styles.primaryBtn} onClick={handleLogout}>Sign Out</button>
       </nav>
+
     </header>
   );
 };
 
 const styles = {
+  primaryBtn: {
+    backgroundColor: "#0078d4",
+    color: "#ffffff",
+    border: "none",
+    padding: "10px 22px",
+    fontSize: "14px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
   header: {
     display: "flex",
     alignItems: "center",
