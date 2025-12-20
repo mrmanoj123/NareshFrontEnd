@@ -13,7 +13,7 @@ const Unauthorized = () => {
         url to proceed
       </p>
 
-      <button style={styles.button} onClick={() => navigate("/home")}>
+      <button style={styles.button} onClick={() => navigate("/")}>
         ⬅ Go Home
       </button>
     </div>

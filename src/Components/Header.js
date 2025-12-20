@@ -1,51 +1,54 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
-
+import { Link } from "react-router-dom";
 
 const Header = () => {
+  const { instance, accounts } = useMsal();
 
-  const { instance } = useMsal();
+  const user = accounts?.[0];
+  console.log(accounts)
+  const userName = user?.name
+    ? user.name.includes(" ")
+      ? user.name.split(" ")[0]
+      : user.name
+    : "User";
 
-const handleLogout = () => {
-  instance.logoutRedirect({
-    postLogoutRedirectUri: "/",
-  });
-};
-  const {accounts} = useMsal();
-  const user = accounts[0]
-  const userName = user.name.includes(' ')?user.name.split(' ')[0]:user.name
+  const handleLogout = () => {
+    instance.logoutRedirect({
+      postLogoutRedirectUri: "/",
+    });
+  };
+
   return (
     <header style={styles.header}>
-      <h1>Welcome, {userName}</h1>
-      <div style={styles.logo}>File Upload Portal</div>
+      
+      {/* LEFT: Logo */}
+      <div style={styles.logo}>
+        File Upload Portal
+      </div>
 
+      {/* CENTER: Navigation */}
       <nav style={styles.nav}>
-        <a href="/" style={styles.link}>
-          Home
-        </a>
-        <a href="/upload" style={styles.link}>
-          Upload
-        </a>
-        <a href="/faq" style={styles.link}>
-          FAQ
-        </a>
-        <button style={styles.primaryBtn} onClick={handleLogout}>Sign Out</button>
+        <Link to="/" style={styles.link}>Home</Link>
+        <Link to="/upload" style={styles.link}>Upload</Link>
+        <Link to="/faq" style={styles.link}>FAQ</Link>
       </nav>
+
+      {/* RIGHT: User Info + Logout */}
+      <div style={styles.userSection}>
+        <span style={styles.welcomeText}>
+          Welcome, {userName}
+        </span>
+        <button style={styles.primaryBtn} onClick={handleLogout}>
+          Sign Out
+        </button>
+      </div>
 
     </header>
   );
 };
 
 const styles = {
-  primaryBtn: {
-    backgroundColor: "#0078d4",
-    color: "#ffffff",
-    border: "none",
-    padding: "10px 22px",
-    fontSize: "14px",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
   header: {
     display: "flex",
     alignItems: "center",
@@ -69,7 +72,25 @@ const styles = {
     textDecoration: "none",
     fontSize: "15px",
     fontWeight: "500",
-    position: "relative",
+  },
+  userSection: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  },
+  welcomeText: {
+    fontSize: "14px",
+    fontWeight: "500",
+  },
+  primaryBtn: {
+    backgroundColor: "#ffffff",
+    color: "#005a9e",
+    border: "none",
+    padding: "8px 18px",
+    fontSize: "14px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "600",
   },
 };
 

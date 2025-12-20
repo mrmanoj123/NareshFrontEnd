@@ -1,10 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useMsal } from "@azure/msal-react";
 
 const Home = () => {
   const Move = useNavigate();
   function Uploadfiles() {
     Move("/upload");
+  }
+  const { instance, accounts } = useMsal();
+   function viewfile() {
+    const currentuser = accounts[0]
+    const role = currentuser.idTokenClaims.roles.length < 1 ? "user" : currentuser.idTokenClaims.roles[0]
+    console.log(role)
+    
+    Move("/files");
   }
   return (
     <div style={styles.container}>
@@ -26,7 +35,9 @@ const Home = () => {
           >
             📤 Upload Files
           </button>
-          <button style={styles.secondaryBtn}>📁 View Files</button>
+          <button style={styles.secondaryBtn} onClick={()=>{
+            viewfile()
+          }}>📁 View Files</button>
         </div>
       </section>
 
